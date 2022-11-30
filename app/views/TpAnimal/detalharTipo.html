@@ -1,0 +1,65 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1>Detalhamento do tipo ${a.descricao}</h1>
+
+
+<br/>
+<br/>
+<br/>
+
+<h1>Animais do tipo</h1>
+
+<form action="@{Animais.listar}">
+	<div class="row">
+		<div class="col-12">
+			<label class="form-label">Termo de busca:</label>
+		</div>
+		<div class="col-10">
+			<input type="text" name="termo" class="form-control" />
+		</div>
+		<input type="submit" value="Pesquisar" class="btn btn-primary btn-sm col-2" />
+	</div>
+	#{if termo}
+		<small>Pesquisando por: ${termo}</small>
+	#{/if}
+	#{else}
+		<small>Pesquisando por: TODOS</small>
+	#{/else}
+</form>
+
+
+<table class="table table-striped table-hover">
+	<thead>
+	 	<tr>
+      		<th>Nome</th>
+      		<th>Peso</th>
+      		<th>Data de Nascimento</th>
+      		<th>Tipo</th>
+            <th>Ações</th>
+      	</tr>
+	</thead>
+	<tbody>
+		#{list items:animaisList, as:'x'}
+
+		#{if x.tipoAnimal.descricao.equals(a.descricao)}
+		<tr>
+      		<td><a href="@{Animais.detalhar(x.id)}">${x.nome}</a></td>
+      		<td>${x.peso}</td>
+            <td>${x.dataNascimento ? x.dataNascimento.format('dd/MM/yyyy') : ''}</td>
+            <td><a href="@{TpAnimal.detalharTipo(x.tipoAnimal.id)}">${x.tipoAnimal.descricao}</a></td>
+      		<td>
+
+				<a href="@{Animais.editar(x.id)}" class="btn btn-warning btn-sm">Editar</a>
+      			<a href="@{Animais.remover(x.id)}" class="btn btn-danger btn-sm">Remover</a>
+      		</td>
+      	</tr>
+		#{/if}
+      	#{/list}
+	</tbody>
+</table>
+
+
+<a href="@{TpAnimal.TipoAnimalForm}" class="btn btn-primary">Novo Tipo de Animal</a>
+
+<a href="@{TpAnimal.TipoAnimalList}">Listagem de tipos de animais</a>

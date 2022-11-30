@@ -1,0 +1,28 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1>Cadastro de Animais</h1>
+<form action="@{Animais.salvar}" method="post">
+	<input type="hidden" name="animal.id" value="${animalEdit?.id}">
+	<label class="form-label">Nome:</label>
+	<input type="text" name="a.nome" class="form-control" value="${animalEdit?.nome}" />
+	<br />
+	
+	<label class="form-label">Peso:</label>
+	<input type="text" name="a.peso" class="form-control" value="${animalEdit?.peso}" />
+	<br />
+	
+	<label class="form-label">Tipo de animal:</label>
+	<select name="a.tipoAnimal.id" class="form-select">
+		#{list items:tpAnimais, as:'t'}
+			<option value="${t.id}" ${t.id == animalEdit?.tipoAnimal?.id ? 'selected' : ''}>${t.descricao}</option>
+		#{/list}
+	</select>
+	<br />
+	
+	<label class="form-label">Data:</label>
+	<input type="date" name="a.dataNascimento" class="form-control" value="${animalEdit?.dataNascimento}" />
+	<br />
+	
+	<input type="submit" class="btn btn-primary">
+</form>

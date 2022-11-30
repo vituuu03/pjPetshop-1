@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1>Cadastro de Tipos de Animais</h1>
+<form action="@{TpAnimal.salvar}" method="post">
+	<label class="form-label">Nome tipo:</label>
+	<input type="text" name="a.descricao" class="form-control" value="${tpsAnimal?.descricao}" />
+	<br />
+	
+	<input type="submit" class="btn btn-primary">
+</form>
